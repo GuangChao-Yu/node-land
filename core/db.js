@@ -20,12 +20,12 @@ const sequelize = new Sequelize(dbName, user, password, {
     timestamps: true,
     paranoid: true, // 显示 delete_time
     createdAt: 'created_at',
-    updatedAt: 'update_at',
-    deletedAt: 'delete_at',
+    updatedAt: 'updated_at',
+    deletedAt: 'deleted_at',
     underscored: true //驼峰转下划线
   }
 })
 sequelize.sync({
   force: false
 })
-module.exports = {db: sequelize}
+module.exports = {sequelize}
