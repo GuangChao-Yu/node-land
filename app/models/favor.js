@@ -1,4 +1,4 @@
-const {Sequelize, Model} = require('sequelize')
+const {Sequelize, Model, Op} = require('sequelize')
 const {sequelize} = require('../../core/db')
 const {Art} = require('./art')
 
@@ -13,7 +13,7 @@ class Favor extends Model {
     }
     return sequelize.transaction(async t => {
       await Favor.create({art_id, type, uid}, {transaction: t})
-      const art = await Art.getData(art_id, type)
+      const art = await Art.getData(art_id, type, false)
       //  increment +值的方法 by:1代表+1
       await art.increment('fav_nums', {by: 1, transaction: t})
     })
@@ -25,10 +25,34 @@ class Favor extends Model {
     }
     return sequelize.transaction(async t => {
       await favor.destroy({force: true, transaction: t})
-      const art = await Art.getData(art_id, type)
+      const art = await Art.getData(art_id, type, false)
       //  decrement -值的方法 by:1代表-1
       await art.decrement('fav_nums', {by: 1, transaction: t})
     })
+  }
+  static async userLikeIt(art_id, type, uid) {
+    const favor = Favor.findOne({
+      where: {
+        art_id,
+        type,
+        uid
+      }
+    })
+    return favor ? true : false
+  }
+  static async getMyClassicFavors(uid) {
+    const arts = await Favor.findAll({
+      where: {
+        uid,
+        type: {
+          [Op.not]: 400
+        }
+      }
+    })
+    if (!arts) {
+      throw new global.errs.NotFound()
+    }
+    return await Art.getList(arts)
   }
 }
 

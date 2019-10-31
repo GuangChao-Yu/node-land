@@ -22,7 +22,14 @@ const sequelize = new Sequelize(dbName, user, password, {
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     deletedAt: 'deleted_at',
-    underscored: true //驼峰转下划线
+    underscored: true, //驼峰转下划线
+    scopes: {
+      yugc: {
+        attributes: {
+          exclude: ['created_at', 'updated_at', 'deleted_at']
+        }
+      }
+    }
   }
 })
 sequelize.sync({

@@ -19,7 +19,7 @@ class ParameterException extends HttpException {
 class NotFound extends HttpException {
   constructor(msg = '', errorCode = 101) {
     super()
-    this.code = 404
+    this.code = 200
     this.msg = msg || '资源未找到'
     this.errorCode = this.errorCode || 10000
   }
