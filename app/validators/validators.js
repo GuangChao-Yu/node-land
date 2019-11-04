@@ -90,6 +90,30 @@ class LikeValidator extends PositiveIntegerValidator {
   }
 }
 
+class Searchvalidator extends LinValidator {
+  constructor() {
+    super()
+    this.q = [new Rule('isLength', '搜索关键词不能为空', {min: 1, max: 16})]
+    this.start = [
+      new Rule('isInt', 'start不符合规范', {min: 0, max: 60000}),
+      new Rule('isOptional', '', 0)
+    ]
+    this.count = [
+      new Rule('isInt', 'count不符合规范', {min: 1, max: 20}),
+      new Rule('isOptional', 20)
+    ]
+  }
+}
+
+class AddShortCommentValidator extends PositiveIntegerValidator {
+  constructor() {
+    super()
+    this.content = [
+      new Rule('isLength', '必须在1-24个字符之间', {min: 1, max: 12})
+    ]
+  }
+}
+
 class Checker {
   constructor(type) {
     this.enumType = type
@@ -110,5 +134,7 @@ module.exports = {
   RegisterValidator,
   TokenValidator,
   NotEmptyValidator,
-  LikeValidator
+  LikeValidator,
+  Searchvalidator,
+  AddShortCommentValidator
 }

@@ -1,5 +1,5 @@
 const {Op} = require('sequelize')
-const {flatten} = require('lodash')
+const {flatten} = require('lodash') // 展平数组
 const {Movie, Sentence, Music} = require('./classic')
 
 class Art {
@@ -30,13 +30,13 @@ class Art {
     const scope = 'yugc'
     switch (type) {
       case 100:
-        arts = await Movie.scope(scope).findOne(finder)
+        arts = await Movie.scope(scope).findAll(finder)
         break
       case 200:
-        arts = await Music.scope(scope).findOne(finder)
+        arts = await Music.scope(scope).findAll(finder)
         break
       case 300:
-        arts = await Sentence.scope(scope).findOne(finder)
+        arts = await Sentence.scope(scope).findAll(finder)
         break
       case 400:
         break
