@@ -13,8 +13,8 @@ module.exports = {
     expiresIn: 60 * 60 * 24 //秒单位,过期时间，暂设置为1天
   },
   wx: {
-    appId: '',
-    appSecret: '',
+    appId: 'wx42fd652ffc5d999b',
+    appSecret: '66f8a26fb8b0482fc617dd4606cb2242',
     loginUrl:
       'https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code'
   },
@@ -22,5 +22,6 @@ module.exports = {
     detailUrl: 'http://t.yushu.im/v2/book/id/%s',
     keywordUrl:
       'http://t.yushu.im/v2/book/search?q=%s&count=%s&start=%s&summary=%s'
-  }
+  },
+  host: 'http://localhost:3000/'
 }

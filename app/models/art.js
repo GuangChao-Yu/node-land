@@ -61,10 +61,21 @@ class Art {
         artData = await Sentence.scope(scope).findOne(finder)
         break
       case 400:
+        const {Book} = require('./book')
+        artData = await Book.scope(scope).findOne(finder)
+        if (!artData) {
+          artData = await Book.create({
+            id: art_id
+          })
+        }
         break
       default:
         break
     }
+    // if (artData && artData.image) {
+    //   let imgUrl = artData.dataValues.image
+    //   artData.dataValues.image = global.config.host + imgUrl
+    // }
     return artData
   }
 }
